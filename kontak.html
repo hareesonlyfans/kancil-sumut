@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontak Darurat – KANCIL SUMUT</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Override page-hero untuk halaman gelap ini */
+    .page-hero {
+      background: linear-gradient(135deg, var(--green-deep) 0%, #0D2E1A 100%) !important;
+      border-bottom: none !important;
+    }
+    .page-hero::before { background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1.5px, transparent 1.5px) !important; }
+    .page-hero-badge { background: rgba(29,185,84,0.2) !important; color: var(--green-soft) !important; border-color: rgba(29,185,84,0.3) !important; }
+    .page-hero h1 { color: var(--white) !important; }
+    .page-hero p  { color: rgba(255,255,255,0.75) !important; }
+
+    .main-content {
+      padding: 64px 24px 96px;
+      background: var(--white);
+    }
+
+    .inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ── WARNING BANNER ── */
+    .warning-banner {
+      background: linear-gradient(135deg,rgba(255,94,94,0.08),rgba(255,94,94,0.03));
+      border: 1.5px solid rgba(255,94,94,0.25);
+      border-radius: var(--radius-lg);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .wb-icon { font-size: 1.8rem; flex-shrink:0; }
+
+    .wb-text h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #C0392B;
+      margin-bottom: 4px;
+    }
+
+    .wb-text p { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
+    .wb-text strong { color: #C0392B; }
+
+    .wb-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #C0392B;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 10px 22px;
+      border-radius: 50px;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .wb-call:hover { background: #A93226; transform: scale(1.03); }
+
+    /* ── EMERGENCY GRID ── */
+.emergency-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.ec-card {
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: var(--transition);
+  border: 1.5px solid var(--border);
+  background: var(--off-white);
+
+  width: 100%;
+  max-width: 420px;
+}
+
+
+
+    .ec-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--green-soft); }
+    .ec-card.featured { background: linear-gradient(135deg, var(--green-deep), var(--green-dark)); border-color: transparent; }
+
+    .ec-icon-wrap {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+    }
+
+    .ec-card:not(.featured) .ec-icon-wrap { background: var(--green-light); }
+    .ec-card.featured .ec-icon-wrap { background: rgba(255,255,255,0.15); }
+
+    .ec-label {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+    }
+    .ec-card.featured .ec-label { color: rgba(255,255,255,0.6); }
+
+    .ec-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); line-height: 1.25; }
+    .ec-card.featured .ec-name { color: var(--white); }
+
+    .ec-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .ec-card.featured .ec-desc { color: rgba(255,255,255,0.7); }
+
+    /* Tombol telepon */
+    .ec-hotline {
+      display: inline-flex;
+      flex-direction: column;
+      background: var(--green);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      width: fit-content;
+      text-decoration: none;
+    }
+
+    .ec-hotline:hover { background: var(--green-dark); transform: scale(1.04); box-shadow: 0 4px 16px rgba(29,185,84,0.35); }
+    .ec-card.featured .ec-hotline { background: var(--gold); color: var(--dark); }
+    .ec-card.featured .ec-hotline:hover { background: #FAD44A; }
+
+    .hotline-number { font-family:var(--font-display); font-weight:800; font-size:1.3rem; letter-spacing:1px; }
+    .hotline-ext    { font-size:0.76rem; opacity:0.85; }
+
+    .ec-badges { display:flex; flex-wrap:wrap; gap:6px; }
+    .ec-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+    .ec-card:not(.featured) .ec-badge { background: var(--green-light); color: var(--green-deep); border: 1px solid var(--green-soft); }
+    .ec-card.featured .ec-badge { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); }
+
+    /* ── FAQ / TIPS SECTION ── */
+    .faq-section { margin-top: 56px; }
+    .faq-title { font-size: 1.25rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      padding: 18px 22px;
+      background: var(--off-white);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+
+    .faq-q:hover { background: var(--green-light); color: var(--green-dark); }
+    .faq-q.open  { background: var(--green-light); color: var(--green-dark); }
+
+    .faq-arrow { transition: transform 0.3s ease; font-size: 0.8rem; flex-shrink:0; }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+
+    .faq-a {
+      padding: 0 22px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+      background: var(--white);
+    }
+
+    .faq-a.open { max-height: 300px; padding: 16px 22px 20px; }
+
+    @media (max-width:900px) {
+      .emergency-grid { grid-template-columns:1fr; }
+      .warning-banner { flex-direction:column; align-items:flex-start; gap:12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="webb.html" class="nav-logo">
+    <img src="loco-icon.png"
+         class="logo-icon">
+
+    <span>KANCIL <span class="logo-accent">SUMUT</span></span>
+</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="webb.html"           class="nav-link">🏠 Beranda</a></li>
+        <li><a href="bilik.html"    class="nav-link">💌 Bilik Cerita</a></li>
+        <li><a href="re.html"   class="nav-link">📚 Ruang Edukasi</a></li>
+        <li><a href="kontak.html"  class="nav-link active">🆘 Kontak Darurat</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="page-hero-badge">🆘 Bantuan Segera</span>
+    <h1>Kontak Darurat &amp; <em>Mitra Ahli</em></h1>
+    <p>Jika kamu atau temanmu berada dalam situasi berbahaya, jangan ragu untuk menghubungi layanan di bawah ini. Kamu tidak sendirian.</p>
+  </div>
+
+  <div class="main-content">
+    <div class="inner">
+
+      <!-- Warning Banner -->
+      <div class="warning-banner fade-up">
+        <span class="wb-icon">⚠️</span>
+        <div class="wb-text">
+          <h4>Situasi Darurat Sekarang?</h4>
+          <p>Jika kamu atau seseorang dalam bahaya <strong>saat ini</strong>, segera hubungi nomor darurat nasional atau minta bantuan orang dewasa terdekat.</p>
+        </div>
+        <a href="tel:112" class="wb-call">🚨 Hubungi 112</a>
+      </div>
+
+      <!-- Emergency Cards -->
+      <div class="emergency-grid">
+
+
+        <div class="ec-card featured fade-up">
+          <div class="ec-icon-wrap">🏥</div>
+          <div>
+            <div class="ec-label">Kemenkes RI</div>
+            <h3 class="ec-name">Layanan Sehat Jiwa</h3>
+          </div>
+          <p class="ec-desc">Hotline resmi pemerintah untuk krisis kesehatan jiwa. Tersedia 24 jam, 7 hari seminggu. Gratis dan rahasia.</p>
+          <a href="tel:119" class="ec-hotline">
+            <span class="hotline-number">📞 119</span>
+            <span class="hotline-ext">tekan ext. 8</span>
+          </a>
+          <div class="ec-badges">
+            <span class="ec-badge">✅ Gratis</span>
+            <span class="ec-badge">🕐 24/7</span>
+            <span class="ec-badge">🔒 Rahasia</span>
+          </div>
+        </div>
+ 
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-section fade-up">
+        <h3 class="faq-title">❓ Pertanyaan yang Sering Ditanyakan</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Apakah curhat ke hotline benar-benar anonim?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              Layanan hotline seperti 119 ext. 8 dirancang untuk menjaga kerahasiaanmu. Kamu tidak diwajibkan menyebutkan nama asli. Tujuan utama mereka adalah membantumu, bukan melaporkan identitasmu.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Kapan saya harus menghubungi kontak darurat vs KANCIL SUMUT?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              Hubungi <strong>kontak darurat (119 / 112)</strong> jika kamu atau seseorang dalam bahaya fisik segera, memiliki pikiran untuk menyakiti diri sendiri atau orang lain, atau membutuhkan intervensi medis. <strong>KANCIL SUMUT</strong> cocok untuk curhat sehari-hari, stres akademik, masalah pertemanan, atau ketika kamu hanya butuh didengar.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Bagaimana jika saya tidak berani menelepon?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              Itu sangat wajar. Kamu bisa mulai dengan menulis ceritamu di <a href="bilik-cerita.html" style="color:var(--green-dark);font-weight:600">Bilik Cerita KANCIL SUMUT</a> terlebih dahulu — tidak perlu menelepon, tidak perlu bersuara. Kami akan membantumu menemukan langkah selanjutnya.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Apakah layanan ini gratis untuk semua pelajar?
+              <span class="faq-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+              Ya, 100% gratis. KANCIL SUMUT adalah platform nirlaba yang dibuat untuk membantu pelajar Sumatera Utara. Hotline 119 juga gratis dari semua provider. PUSPAGA dan UPTD PPA juga tidak memungut biaya.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">🦌 KANCIL <span>SUMUT</span></div>
+          <p class="footer-tagline">Kamar Konseling Digital Pelajar Sumatera Utara</p>
+          <p class="footer-tagline2">Ruang aman, tanpa dihakimi, 100% rahasia.</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="webb.html">🏠 Beranda</a></li>
+            <li><a href="bilik.html">💌 Bilik Cerita</a></li>
+            <li><a href="re.html">📚 Ruang Edukasi</a></li>
+            <li><a href="kontak.html">🆘 Kontak Darurat</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Bantuan Darurat</h4>
+          <ul>
+            <li><a href="tel:119">📞 119 ext. 8</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 KANCIL SUMUT – Dibuat dengan 💚 untuk Pelajar Sumatera Utara</p>
+        <p class="footer-disclaimer">Platform ini bukan pengganti profesional kesehatan mental. Untuk krisis berat, hubungi layanan darurat.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Kembali ke atas">↑</button>
+
+  <script src="script.js"></script>
+  <script>
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      // tutup yang lain
+      document.querySelectorAll('.faq-a.open').forEach(el => {
+        if (el !== answer) {
+          el.classList.remove('open');
+          el.previousElementSibling.classList.remove('open');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

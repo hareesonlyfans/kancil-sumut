@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bilik Cerita – KANCIL SUMUT</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .main-content { padding: 64px 24px 96px; background: var(--white); }
+
+    /* ── FITUR CARDS ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto 56px;
+    }
+
+    .feature-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--green-soft);
+      background: var(--white);
+    }
+
+    .feature-icon { font-size: 2.4rem; display: block; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--dark); }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── CTA BOX ── */
+    .cta-box {
+      max-width: 1100px;
+      margin: 0 auto 48px;
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-dark) 50%, var(--green) 100%);
+      border-radius: var(--radius-lg);
+      padding: 64px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before { content:'🌿'; position:absolute; font-size:9rem; opacity:0.06; top:-10px; left:10px; transform:rotate(-25deg); }
+    .cta-box::after  { content:'🌿'; position:absolute; font-size:9rem; opacity:0.06; bottom:-10px; right:10px; transform:rotate(25deg) scaleX(-1); }
+
+    .cta-deco { position:absolute; inset:0; pointer-events:none; }
+    .cta-circle { position:absolute; border-radius:50%; background:rgba(255,255,255,0.06); }
+    .c1 { width:320px; height:320px; top:-120px; right:-80px; }
+    .c2 { width:200px; height:200px; bottom:-80px; left:-50px; }
+
+    .cta-emoji { font-size:3.5rem; display:block; margin-bottom:16px; animation:bounce 2s ease-in-out infinite; position:relative; }
+    @keyframes bounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+    .cta-box h2 { font-size:1.9rem; color:var(--white); margin-bottom:12px; position:relative; }
+    .cta-box p  { color:rgba(255,255,255,0.82); font-size:1rem; margin-bottom:32px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.75; position:relative; }
+
+    .btn-curhat {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 18px 44px;
+      border-radius: 50px;
+      transition: var(--transition);
+      box-shadow: 0 6px 28px rgba(245,200,66,0.45);
+      position: relative;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-curhat-icon { font-size:1.3rem; animation:wiggle 2s ease-in-out infinite; }
+    @keyframes wiggle { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-10deg)} 75%{transform:rotate(10deg)} }
+
+    .btn-curhat:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 12px 40px rgba(245,200,66,0.6); }
+    .cta-note { color:rgba(255,255,255,0.6); font-size:0.84rem; margin-top:18px; position:relative; }
+
+    /* ── FORM PREVIEW ── */
+    .form-preview {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--off-white);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      border: 1px solid var(--border);
+    }
+
+    .preview-title { font-size:1.1rem; margin-bottom:22px; color:var(--dark); }
+
+    .form-steps {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+
+    .form-step-item {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num-circle {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .step-text strong { display:block; font-family:var(--font-display); font-size:0.9rem; margin-bottom:5px; color:var(--dark); }
+    .step-text span   { font-size:0.8rem; color:var(--muted); }
+
+    .opt-badges { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .opt-badge {
+      background: var(--green-light);
+      color: var(--green-deep);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-family: var(--font-display);
+      border: 1px solid var(--green-soft);
+    }
+
+    @media (max-width:900px) { .feature-grid{grid-template-columns:1fr} .form-steps{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+         <a href="webb.html" class="nav-logo">
+    <img src="loco-icon.png"
+         class="logo-icon">
+
+    <span>KANCIL <span class="logo-accent">SUMUT</span></span>
+</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="webb.html"           class="nav-link">🏠 Beranda</a></li>
+        <li><a href="bilik.html"    class="nav-link active">💌 Bilik Cerita</a></li>
+        <li><a href="re.html"   class="nav-link">📚 Ruang Edukasi</a></li>
+        <li><a href="kontak.html"  class="nav-link">🆘 Kontak Darurat</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="page-hero-badge">💌 Bilik Cerita</span>
+    <h1>Kotak Curhat <em>Anonim</em></h1>
+    <p>Ingin meluapkan isi hati? Tuliskan ceritamu di sini. Tidak perlu nama asli — rahasiamu 100% aman bersama kami.</p>
+  </div>
+
+  <div class="main-content">
+
+    <!-- Fitur -->
+    <div class="feature-grid">
+      <div class="feature-card fade-up">
+        <span class="feature-icon">🎭</span>
+        <h3>Nama Samaran</h3>
+        <p>Gunakan inisial atau nama apapun yang membuatmu nyaman. Bunga, SiswaMedan, atau Anonim — semua oke!</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:80ms">
+        <span class="feature-icon">📝</span>
+        <h3>Curhat Bebas</h3>
+        <p>Ceritakan apapun yang ada di pikiranmu. Tidak ada yang salah, tidak ada yang akan menghakimi.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:160ms">
+        <span class="feature-icon">📱</span>
+        <h3>Pilih Respons</h3>
+        <p>Mau dibalas atau hanya ingin meluapkan? Pilihanmu! Kami siap jika kamu butuh teman ngobrol.</p>
+      </div>
+    </div>
+
+    <!-- CTA Box -->
+    <div class="cta-box fade-up">
+      <div class="cta-deco">
+        <div class="cta-circle c1"></div>
+        <div class="cta-circle c2"></div>
+      </div>
+      <span class="cta-emoji">💬</span>
+      <h2>Siap Bercerita?</h2>
+      <p>Kami mendengarkan setiap ceritamu dengan sepenuh hati. Formulir ini aman dan dijaga kerahasiaannya.</p>
+      <a href="curhat.html" class="btn-curhat">
+        <span class="btn-curhat-icon">✍️</span>
+        KLIK DI SINI UNTUK MULAI CURHAT
+      </a>
+      <p class="cta-note">🔒 Rahasiamu 100% aman &nbsp;·&nbsp; Tidak wajib memberikan nama asli</p>
+    </div>
+
+    <!-- Form Preview -->
+    <div class="form-preview fade-up">
+      <h3 class="preview-title">📋 Apa yang akan kamu isi? (3 Langkah Singkat)</h3>
+      <div class="form-steps">
+        <div class="form-step-item">
+          <div class="step-num-circle">1</div>
+          <div class="step-text">
+            <strong>Perkenalan</strong>
+            <span>Inisial atau nama samaran yang membuatmu nyaman</span>
+          </div>
+        </div>
+        <div class="form-step-item">
+          <div class="step-num-circle">2</div>
+          <div class="step-text">
+            <strong>Ceritamu</strong>
+            <span>Tuliskan beban pikiran atau perasaanmu sebebas-bebasnya</span>
+          </div>
+        </div>
+        <div class="form-step-item">
+          <div class="step-num-circle">3</div>
+          <div class="step-text">
+            <strong>Cara Balasan</strong>
+            <div class="opt-badges">
+              <span class="opt-badge">📱 WhatsApp</span>
+              <span class="opt-badge">🙈 Tidak Perlu</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">🦌 KANCIL <span>SUMUT</span></div>
+          <p class="footer-tagline">Kamar Konseling Digital Pelajar Sumatera Utara</p>
+          <p class="footer-tagline2">Ruang aman, tanpa dihakimi, 100% rahasia.</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="webb.html">🏠 Beranda</a></li>
+            <li><a href="bilik.html">💌 Bilik Cerita</a></li>
+            <li><a href="re.html">📚 Ruang Edukasi</a></li>
+            <li><a href="kontak.html">🆘 Kontak Darurat</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Bantuan Darurat</h4>
+          <ul>
+            <li><a href="tel:119">📞 119 ext. 8</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 KANCIL SUMUT – Dibuat dengan 💚 untuk Pelajar Sumatera Utara</p>
+        <p class="footer-disclaimer">Platform ini bukan pengganti profesional kesehatan mental.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Kembali ke atas">↑</button>
+  <script src="script.js"></script>
+</body>
+</html>

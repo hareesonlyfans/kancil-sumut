@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruang Edukasi – KANCIL SUMUT</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .main-content {
+      padding: 64px 24px 96px;
+      background: linear-gradient(180deg, var(--green-light) 0%, var(--white) 300px);
+    }
+
+    /* ── FILTER TABS ── */
+    .filter-wrap {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--white);
+    }
+
+    /* ── ARTICLES GRID ── */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .article-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--green-soft);
+    }
+
+    .article-header {
+      padding: 28px 28px 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .art-1 { background: linear-gradient(135deg,#DDFAE6,#B8F0CC); }
+    .art-2 { background: linear-gradient(135deg,#D4F5E9,#A8EDCC); }
+    .art-3 { background: linear-gradient(135deg,#E8F8FF,#B8E8F9); }
+    .art-4 { background: linear-gradient(135deg,#FFF6D5,#FFE89C); }
+
+    .article-emoji { font-size: 2.8rem; }
+
+    .article-tag {
+      background: rgba(255,255,255,0.85);
+      color: var(--green-deep);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.72rem;
+      padding: 5px 12px;
+      border-radius: 50px;
+    }
+
+    .article-body {
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .article-title {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      line-height: 1.35;
+      color: var(--dark);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .article-excerpt {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    /* Konten lengkap (tersembunyi default) */
+    .article-full {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.75;
+      display: none;
+      margin-bottom: 20px;
+    }
+
+    .article-full.open { display: block; }
+
+    .article-full p { margin-bottom: 14px; }
+    .article-full p:last-child { margin-bottom: 0; }
+
+    .btn-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 20px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      align-self: flex-start;
+      border: 1px solid var(--green-soft);
+    }
+
+    .btn-read:hover { background: var(--green); color: var(--white); border-color: var(--green); }
+
+    /* ── TIPS KILAT ── */
+    .tips-section {
+      max-width: 1100px;
+      margin: 56px auto 0;
+      background: linear-gradient(135deg, var(--green-deep), var(--green-dark));
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    
+
+    .tips-section::before {
+      content: '🌿'; position:absolute; font-size:8rem; opacity:0.07;
+      top:-10px; right:20px; transform:rotate(20deg);
+    }
+
+    .tips-section h3 {
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 16px;
+      position: relative;
+    }
+
+    .tip-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .tip-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-3px); }
+
+    .tip-icon { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+    .tip-label { font-family:var(--font-display); font-weight:600; font-size:0.82rem; color:rgba(255,255,255,0.9); line-height:1.4; }
+
+      @media (max-width:900px) {
+      .articles-grid { grid-template-columns:1fr; }
+      .tips-grid { grid-template-columns:repeat(2,1fr); }
+      .external-grid { grid-template-columns:1fr; }
+    }
+
+    /* ── BACAAN TAMBAHAN (LINK EKSTERNAL) ── */
+    .external-section {
+      max-width: 1000px;
+      margin: 60px auto 0;
+    }
+    .external-section h3 {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .external-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    .external-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+    .external-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: var(--transition);
+    }
+    .external-card:hover {
+      border-color: var(--green-soft);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-3px);
+    }
+    .ext-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .ext-text { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .ext-title { font-family: var(--font-display); font-weight: 700; font-size: 0.88rem; color: var(--dark); }
+    .ext-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .ext-arrow { font-size: 1rem; color: var(--muted); flex-shrink: 0; }
+
+    @media (max-width:640px) {
+      .tips-section { padding:32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="webb.html" class="nav-logo">
+    <img src="loco-icon.png"
+         class="logo-icon">
+
+    <span>KANCIL <span class="logo-accent">SUMUT</span></span>
+</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="webb.html"           class="nav-link">🏠 Beranda</a></li>
+        <li><a href="bilik.html"    class="nav-link">💌 Bilik Cerita</a></li>
+        <li><a href="re.html"   class="nav-link active">📚 Ruang Edukasi</a></li>
+        <li><a href="kontak.html"  class="nav-link">🆘 Kontak Darurat</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="page-hero-badge">📚 Ruang Edukasi</span>
+    <h1>Artikel <em>Kesehatan Mental</em></h1>
+    <p>Dibaca, dipahami, dan langsung bisa dipraktikkan. Semua artikel ditulis khusus untuk pelajar Sumut.</p>
+  </div>
+
+  <div class="main-content">
+
+    <!-- Filter -->
+    <div class="filter-wrap">
+      <button class="filter-btn active" onclick="filterArtikel('semua',this)">✨ Semua</button>
+      <button class="filter-btn" onclick="filterArtikel('stres',this)">🔥 Stres & Burnout</button>
+      <button class="filter-btn" onclick="filterArtikel('sosial',this)">🤝 Hubungan Sosial</button>
+      <button class="filter-btn" onclick="filterArtikel('motivasi',this)">💪 Motivasi</button>
+      <button class="filter-btn" onclick="filterArtikel('tidur',this)">😴 Tidur & Istirahat</button>
+    </div>
+
+    <!-- Grid Artikel -->
+    <div class="articles-grid">
+
+      <!-- Artikel 1 -->
+      <article class="article-card fade-up" data-cat="stres">
+        <div class="article-header art-1">
+          <span class="article-emoji">🔥</span>
+          <span class="article-tag">Stres & Burnout</span>
+        </div>
+        <div class="article-body">
+          <h2 class="article-title">3 Cara Ampuh Mengatasi Burnout dan Stres Akibat Tugas Sekolah</h2>
+          <div class="article-meta">
+            <span>✍️ Tim KANCIL SUMUT</span>
+            <span>⏱️ 3 menit baca</span>
+          </div>
+          <p class="article-excerpt">
+            Pernah merasa seperti baterai yang hampir habis? Semua tugas menumpuk, ujian semakin dekat,
+            tapi energimu sudah di titik nol. Itulah burnout — dan kamu tidak sendirian mengalaminya.
+          </p>
+          <div class="article-full" id="full-1">
+            <p>Pernah merasa seperti baterai yang hampir habis? Semua tugas menumpuk, ujian semakin dekat, tapi energimu sudah di titik nol. Itulah yang disebut <strong>burnout</strong> — kondisi kelelahan fisik dan mental akibat tekanan berkepanjangan yang sangat umum dialami pelajar.</p>
+            <p><strong>1. Terapkan Teknik Pomodoro.</strong> Belajar 25 menit, istirahat 5 menit. Siklus ini terbukti secara ilmiah menjaga fokus dan mencegah kelelahan mental. Gunakan timer HP-mu dan patuhi jeda istirahatnya — bahkan 5 menit saja sangat berarti untuk otakmu.</p>
+            <p><strong>2. Jangan Tunda "Me Time".</strong> Lakukan minimal satu aktivitas yang kamu sukai setiap hari — mendengarkan musik, menggambar, atau sekadar rebahan santai. "Me time" bukan malas, melainkan kebutuhan mental yang wajib dipenuhi.</p>
+            <p><strong>3. Bicara, Jangan Pendam Sendiri.</strong> Ceritakan bebanmu ke orang yang kamu percaya — teman, guru BK, atau KANCIL SUMUT. Penelitian menunjukkan bahwa mengungkapkan perasaan secara verbal dapat mengurangi intensitas stres hingga 50%.</p>
+          </div>
+          <button class="btn-read" onclick="toggleArtikel('full-1',this)">📖 Baca selengkapnya ▼</button>
+        </div>
+      </article>
+
+      <!-- Artikel 2 -->
+      <article class="article-card fade-up" data-cat="sosial" style="transition-delay:80ms">
+        <div class="article-header art-2">
+          <span class="article-emoji">🤝</span>
+          <span class="article-tag">Hubungan Sosial</span>
+        </div>
+        <div class="article-body">
+          <h2 class="article-title">Mengapa Curhat ke Teman Sebaya Itu Penting untuk Kesehatan Mentalmu?</h2>
+          <div class="article-meta">
+            <span>✍️ Tim KANCIL SUMUT</span>
+            <span>⏱️ 4 menit baca</span>
+          </div>
+          <p class="article-excerpt">
+            Ada alasan kuat mengapa kamu lebih mudah bercerita ke teman daripada ke orang tua atau guru.
+            Teman sebaya memahami duniamu karena mereka hidup di realita yang sama.
+          </p>
+          <div class="article-full" id="full-2">
+            <p>Ada alasan kuat mengapa kamu lebih mudah bercerita ke teman daripada ke orang tua atau guru. Teman sebaya memahami duniamu karena mereka hidup di realita yang sama — tekanan ujian yang sama, drama pertemanan yang sama, kebingungan masa depan yang sama. Inilah yang disebut <strong>peer support</strong>.</p>
+            <p>Sebuah studi menemukan bahwa remaja yang memiliki setidaknya satu teman kepercayaan memiliki tingkat kecemasan dan depresi yang jauh lebih rendah dibandingkan mereka yang menyimpan masalah sendiri.</p>
+            <p>Namun, curhat ke teman sebaya juga butuh keterampilan. Sebagai pendengar yang baik, hindari langsung memberi solusi. Cukup dengarkan, validasi perasaannya, dan tanya "kamu ingin dibantu atau hanya ingin didengar?"</p>
+            <p>KANCIL SUMUT hadir sebagai jembatan — ketika kamu butuh lebih dari sekadar teman, kami ada untuk memastikan ceritamu sampai ke telinga yang tepat.</p>
+          </div>
+          <button class="btn-read" onclick="toggleArtikel('full-2',this)">📖 Baca selengkapnya ▼</button>
+        </div>
+      </article>
+
+      <!-- Artikel 3 -->
+      <article class="article-card fade-up" data-cat="motivasi">
+        <div class="article-header art-3">
+          <span class="article-emoji">💪</span>
+          <span class="article-tag">Motivasi</span>
+        </div>
+        <div class="article-body">
+          <h2 class="article-title">Merasa Tidak Semangat Sekolah? Ini 4 Cara Membangun Motivasi Belajar</h2>
+          <div class="article-meta">
+            <span>✍️ Tim KANCIL SUMUT</span>
+            <span>⏱️ 3 menit baca</span>
+          </div>
+          <p class="article-excerpt">
+            Kehilangan motivasi belajar bukan berarti kamu malas. Seringkali itu tanda bahwa kamu butuh
+            perubahan pendekatan, bukan semangat yang lebih keras.
+          </p>
+          <div class="article-full" id="full-3">
+            <p>Kehilangan motivasi belajar bukan berarti kamu malas. Seringkali itu tanda bahwa kamu butuh perubahan pendekatan, bukan semangat yang lebih keras dipaksakan.</p>
+            <p><strong>1. Temukan "Mengapa"-mu.</strong> Bukan nilai, tapi tujuan yang lebih besar. Apakah kamu ingin membanggakan orang tua? Meraih karir impian? Tulis tujuan itu dan tempel di tempat yang sering kamu lihat.</p>
+            <p><strong>2. Mulai dari yang kecil.</strong> Jangan langsung targetkan belajar 4 jam. Mulai dengan 10 menit. Otak akan merasa berhasil dan ingin melanjutkan lebih lama secara alami.</p>
+            <p><strong>3. Ubah lingkungan belajar.</strong> Kadang masalahnya bukan pelajarannya, tapi tempatnya. Coba belajar di ruangan berbeda, kafe, atau taman sekolah.</p>
+            <p><strong>4. Rayakan kemajuan kecil.</strong> Selesai membaca satu bab? Itu pencapaian. Apresiasi dirimu agar otak terus termotivasi.</p>
+          </div>
+          <button class="btn-read" onclick="toggleArtikel('full-3',this)">📖 Baca selengkapnya ▼</button>
+        </div>
+      </article>
+
+      <!-- Artikel 4 -->
+      <article class="article-card fade-up" data-cat="tidur" style="transition-delay:80ms">
+        <div class="article-header art-4">
+          <span class="article-emoji">😴</span>
+          <span class="article-tag">Tidur & Istirahat</span>
+        </div>
+        <div class="article-body">
+          <h2 class="article-title">Begadang Untuk Belajar? Ini Alasan Kenapa Itu Justru Menurunkan Nilaimu</h2>
+          <div class="article-meta">
+            <span>✍️ Tim KANCIL SUMUT</span>
+            <span>⏱️ 3 menit baca</span>
+          </div>
+          <p class="article-excerpt">
+            Banyak pelajar yang bangga bisa begadang demi ujian. Tapi sains punya kabar buruk:
+            kurang tidur justru membuat otakmu lebih lambat memproses dan mengingat informasi.
+          </p>
+          <div class="article-full" id="full-4">
+            <p>Banyak pelajar yang bangga bisa begadang demi ujian. Tapi sains punya kabar buruk: kurang tidur justru membuat otakmu lebih lambat memproses dan mengingat informasi.</p>
+            <p>Saat kamu tidur, otak melakukan "konsolidasi memori" — yaitu proses memindahkan informasi dari memori jangka pendek ke memori jangka panjang. Jika kamu tidak tidur cukup, proses ini terganggu dan materi yang sudah dipelajari bisa "lenyap".</p>
+            <p><strong>Tips tidur yang lebih baik:</strong> Tidur dan bangun di jam yang sama setiap hari. Hindari layar HP minimal 30 menit sebelum tidur. Kamar yang gelap dan sejuk membantu tidur lebih cepat dan lebih berkualitas.</p>
+            <p>Remaja membutuhkan 8–10 jam tidur per malam. Jika ujian besok, tidur cukup jauh lebih efektif daripada belajar semalam suntuk.</p>
+          </div>
+          <button class="btn-read" onclick="toggleArtikel('full-4',this)">📖 Baca selengkapnya ▼</button>
+        </div>
+      </article>
+
+    </div>
+
+  <!-- Tips Kilat -->
+    <div class="tips-section fade-up" style="margin-top:56px">
+      <h3>⚡ Tips Kilat Kesehatan Mental</h3>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <span class="tip-icon">🌬️</span>
+          <span class="tip-label">Tarik napas dalam 4 detik, tahan 4 detik, buang 4 detik</span>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">🚶</span>
+          <span class="tip-label">Jalan kaki 10 menit bisa meningkatkan mood secara signifikan</span>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">📓</span>
+          <span class="tip-label">Tulis 3 hal yang kamu syukuri setiap malam sebelum tidur</span>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">💧</span>
+          <span class="tip-label">Minum air cukup — dehidrasi ringan pun bisa membuatmu cemas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bacaan Tambahan dari Sumber Terpercaya -->
+    <div class="external-section fade-up">
+      <h3>🔗 Bacaan Tambahan dari Sumber Terpercaya</h3>
+      <p class="external-desc">Untuk topik yang lebih mendalam atau butuh penanganan profesional, kami rekomendasikan sumber resmi berikut.</p>
+      <div class="external-grid">
+
+        <a href="https://www.healing119.id" target="_blank" rel="noopener" class="external-card">
+          <span class="ext-icon">☎️</span>
+          <div class="ext-text">
+            <span class="ext-title">Healing119.id (Kemenkes RI)</span>
+            <span class="ext-desc">Layanan konseling psikologi gratis dari pemerintah — chat & telepon 119 ext. 8, tersedia 24 jam.</span>
+          </div>
+          <span class="ext-arrow">↗</span>
+        </a>
+
+        <a href="http://pdskji.org/home" target="_blank" rel="noopener" class="external-card">
+          <span class="ext-icon">🩺</span>
+          <div class="ext-text">
+            <span class="ext-title">Swaperiksa PDSKJI</span>
+            <span class="ext-desc">Tes mandiri online dari Perhimpunan Dokter Spesialis Kesehatan Jiwa Indonesia untuk cek kecemasan, depresi, atau trauma.</span>
+          </div>
+          <span class="ext-arrow">↗</span>
+        </a>
+
+        <a href="https://www.intothelightid.org" target="_blank" rel="noopener" class="external-card">
+          <span class="ext-icon">🕯️</span>
+          <div class="ext-text">
+            <span class="ext-title">Into The Light Indonesia</span>
+            <span class="ext-desc">Organisasi non-profit fokus pencegahan bunuh diri, edukasi, dan daftar hotline kesehatan jiwa se-Indonesia.</span>
+          </div>
+          <span class="ext-arrow">↗</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">🦌 KANCIL <span>SUMUT</span></div>
+          <p class="footer-tagline">Kamar Konseling Digital Pelajar Sumatera Utara</p>
+          <p class="footer-tagline2">Ruang aman, tanpa dihakimi, 100% rahasia.</p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Navigasi</h4>
+          <ul>
+            <li><a href="webb.html">🏠 Beranda</a></li>
+            <li><a href="bilik.html">💌 Bilik Cerita</a></li>
+            <li><a href="re.html">📚 Ruang Edukasi</a></li>
+            <li><a href="kontak.html">🆘 Kontak Darurat</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Bantuan Darurat</h4>
+          <ul>
+            <li><a href="tel:119">📞 119 ext. 8</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 KANCIL SUMUT – Dibuat dengan 💚 untuk Pelajar Sumatera Utara</p>
+        <p class="footer-disclaimer">Platform ini bukan pengganti profesional kesehatan mental.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" aria-label="Kembali ke atas">↑</button>
+
+  <script src="script.js"></script>
+  <script>
+    function toggleArtikel(id, btn) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.toggle('open');
+      const card = btn.closest('.article-card');
+      btn.textContent = isOpen ? '📕 Sembunyikan ▲' : '📖 Baca selengkapnya ▼';
+      if (!isOpen) card.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
+    function filterArtikel(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.article-card').forEach(card => {
+        const show = cat === 'semua' || card.dataset.cat === cat;
+        card.style.display = show ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
